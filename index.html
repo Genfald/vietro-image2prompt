@@ -29,81 +29,85 @@
 
   <div class="logo">◇ VIETRO</div>
   <h1>Privacy Policy</h1>
-  <div class="date">Image to Prompt Generator VIETRO — Chrome extension · Effective date: June 13, 2026</div>
+  <div class="date">Image to Prompt Generator VIETRO · Updated September 27, 2026</div>
+  <p>This policy covers the VIETRO Chrome extension and its built-in prompt and credit service. The operator is VIETRO (publisher: Genfald); privacy requests: <a href="mailto:genfald@gmail.com">genfald@gmail.com</a>. The extension describes an image you select as a text prompt. You can use the built-in service or your own AI provider account.</p>
 
-  <p>Image to Prompt Generator VIETRO ("the extension") turns images you click into text prompts for AI tools. This policy explains what data the extension processes and where it goes. Short version: <b>we run no servers of our own, collect no analytics, show no ads, and never sell data.</b></p>
-
-  <h2>What data is processed</h2>
-  <div class="card">
-    <ul>
-      <li><b>The image you click.</b> When you explicitly request a prompt (right-click menu or Alt+click), the image (or its URL) is sent to the AI provider you selected so it can describe the image. Nothing is sent without your action.</li>
-      <li><b>Your settings.</b> Prompt style, interface language, selected provider and model, credit balance — stored in your browser via <code>chrome.storage</code> (synced by Chrome between your own devices).</li>
-      <li><b>Your API keys</b> (optional, "Your own API" mode). Stored only in your browser via <code>chrome.storage</code> and sent only to the provider the key belongs to. We never see them.</li>
-      <li><b>Prompt history.</b> The last 50 generated prompts are stored locally in your browser. You can export or clear them at any time ("Reset all").</li>
-    </ul>
-  </div>
-
-  <h2>Third-party services</h2>
+  <h2>Data we process and why</h2>
   <ul>
-    <li><b>AI providers</b> — OpenRouter, Google Gemini, OpenAI or Groq (whichever you select): receive the image and return the prompt. Their own privacy policies apply.</li>
-    <li><b>Monobank</b> (credit purchases): payment happens on Monobank's page. We never receive or store card details.</li>
-    <li><b>QR code service</b> (api.qrserver.com): used only to render the Monobank payment link as a QR code; the payment link is the only data sent to it.</li>
+    <li><b>Selected image and generated prompt.</b> A right-click command, Alt+click, or supported Mac Shift+click triggers analysis. The extension downloads the selected image; if downloading fails, it sends the image URL instead. That URL may include query parameters. The image or URL, prompt instructions, style, language and model choice are processed to generate your result. We do not scan or upload every image on a page.</li>
+    <li><b>Built-in credit account.</b> A persistent device identifier, registration IP address, account linkage, balance, usage timestamps, selected model and success/failure records are processed by our Supabase backend to provide credits, prevent abuse and diagnose service failures. Provider request identifiers, token usage and cost records may also be retained for operational accounting.</li>
+    <li><b>Optional email sign-in.</b> Your email, authentication records and account identifier are processed by Supabase Auth for one-time-code login and account access. The email remains associated with the account; it is not discarded after sending the code. Your browser stores the email and access/refresh tokens for your session. Low-balance service emails may be sent via Resend.</li>
+    <li><b>Payments.</b> We retain invoice identifiers, credit package, amount, payment status, timestamps and the associated device/account to fulfil purchases and resolve payment issues. Monobank processes payment on its own page; the extension does not collect your card number or security code.</li>
+    <li><b>Settings and credentials.</b> Language, style, provider/model, device identifier and optional personal API keys use <code>chrome.storage.sync</code>. Chrome may synchronise these through your Google account according to your browser settings. Keys are sent to the selected provider for key validation and API requests; the built-in VIETRO backend does not receive your personal provider keys.</li>
+    <li><b>Local records.</b> <code>chrome.storage.local</code> holds up to 50 recent prompt records (text, model, style and time), the displayed balance, authentication session and pending login/payment information. The history is not uploaded as a history list.</li>
   </ul>
 
-  <h2>What we do NOT do</h2>
+  <h2>Recipients and data transfers</h2>
   <ul>
-    <li>No collection of personal data, browsing history, or page content.</li>
-    <li>No analytics, tracking, or advertising of any kind.</li>
-    <li>No selling or sharing of data with anyone beyond the services listed above.</li>
-    <li>No background activity: the extension only acts when you click.</li>
+    <li><b>Built-in mode:</b> Supabase hosts the backend, authentication and database. Selected images or image URLs and prompt instructions go through OpenRouter to the model provider; Groq may be used as a fallback. Generated text returns through the backend to the extension.</li>
+    <li><b>Your own API mode:</b> the selected provider (OpenRouter, Google Gemini, OpenAI or Groq) receives your API credential and generation request directly. OpenRouter routes the request to the provider serving the selected model.</li>
+    <li><b>Email:</b> Supabase and its configured mail delivery service process login emails. Resend receives your email address and message content when low-balance notifications are sent.</li>
+    <li><b>Payment and QR:</b> Monobank receives the invoice details needed for payment. To display a payment QR code, <code>api.qrserver.com</code> receives the payment-page URL. These services also receive ordinary connection metadata, such as IP addresses.</li>
+    <li><b>Browser and websites:</b> Google processes Chrome Sync data when sync is enabled. The image host receives the image download request. Pressing “Repeat” opens Gemini and inserts the generated prompt into that website. Opening help, Telegram or this GitHub Pages policy contacts the corresponding website.</li>
   </ul>
+  <p>Providers may process data in countries other than your own. Their retention and processing depend on the provider, model and account settings; this extension does not guarantee zero retention or exclusion from training by every provider. Review the selected service's policy before submitting confidential images.</p>
 
-  <h2>Data removal</h2>
-  <p>All extension data lives in your browser. Use the "Reset all" button in the extension popup, or simply uninstall the extension — Chrome deletes its storage.</p>
+  <h2>Automatic activity and permissions</h2>
+  <p>Content scripts load on matching pages to detect the image action and display a result. Image analysis starts with your request. Opening the popup can refresh your balance/session; payment status polling may resume for an existing invoice. Therefore not every network request requires a new image click.</p>
+  <p><code>contextMenus</code> provides the image command; <code>storage</code> stores settings and records; <code>activeTab</code> and <code>scripting</code> support the result interface and insertion into Gemini. Broad host access allows downloads from the image hosts you select and calls to supported services. We do not collect a general browsing-history list or unrelated page contents.</p>
 
-  <h2>Contact</h2>
-  <p>Questions or requests: <a href="mailto:genfald@gmail.com">genfald@gmail.com</a> · Telegram: <a href="https://t.me/VIETRO_AI">t.me/VIETRO_AI</a></p>
+  <h2>Storage, retention and deletion</h2>
+  <p>The extension keeps the latest 50 prompt records locally, replacing older records as new ones are added. Settings and API keys remain until changed or cleared. You can export history, remove saved provider keys, sign out, and remove the extension. Signing out removes the local session, not the server account. Chrome Sync data is managed through Chrome's sync settings.</p>
+  <p>Server-side account, device, credit, usage and invoice records are not deleted by uninstalling or resetting the extension. No automatic fixed expiry is configured for these application records. To request access, correction or deletion, email <a href="mailto:genfald@gmail.com">genfald@gmail.com</a> with your account email or invoice reference; do not send passwords, API keys or card details. We may ask for proof of account ownership. Records needed to complete payments, resolve disputes, prevent abuse or meet applicable retention obligations may need to be retained; we will explain any limits when handling your request.</p>
+  <p>The prompt endpoint processes images and output text for the response; its application records store usage/accounting metadata rather than an image or prompt archive. External providers and infrastructure logs/backups have their own retention. The local 50-item history and provider-side copies are separate.</p>
+
+  <h2>Security and limited use</h2>
+  <p>Requests to our backend, AI, authentication, email, payment and QR services use HTTPS. Original images are fetched from their source URLs, which can be HTTP or HTTPS. Backend provider credentials remain server-side. Browser storage follows Chrome's security and sync controls; the extension does not add a separate password-protected vault.</p>
+  <p>VIETRO's use and transfer of user data follow the <a href="https://developer.chrome.com/docs/webstore/program-policies/user-data">Chrome Web Store User Data Policy</a>, including its Limited Use requirements. We use data to provide the image-to-prompt, account and payment features, support and security. We do not sell user data, use it for personalised advertising, or use it to determine creditworthiness. We do not routinely read submitted images or prompts; any access for support, security or legal requirements is limited to that purpose.</p>
+  <p>Changes to this policy appear here with an updated date. Contact: <a href="mailto:genfald@gmail.com">genfald@gmail.com</a>.</p>
 
   <hr>
-
+  <section lang="uk">
   <div class="logo">◇ VIETRO</div>
   <h1>Політика конфіденційності</h1>
-  <div class="date">Image to Prompt Generator VIETRO — розширення Chrome · Чинна з 13 червня 2026</div>
+  <div class="date">Image to Prompt Generator VIETRO · Оновлено 27 вересня 2026 року</div>
+  <p>Політика охоплює розширення VIETRO та вбудований сервіс промптів і кредитів. Оператор — VIETRO (видавець: Genfald); звернення щодо даних: <a href="mailto:genfald@gmail.com">genfald@gmail.com</a>. Розширення описує вибране вами зображення текстовим промптом. Доступні вбудований сервіс та режим із власним ключем ШІ-провайдера.</p>
 
-  <p>Розширення перетворює зображення, на які ви клікаєте, на текстові промпти для ШІ-інструментів. Коротко: <b>ми не маємо власних серверів, не збираємо аналітику, не показуємо рекламу й нікому не продаємо дані.</b></p>
-
-  <h2>Які дані обробляються</h2>
-  <div class="card">
-    <ul>
-      <li><b>Зображення, на яке ви клікнули.</b> Надсилається обраному ШІ-провайдеру лише після вашої явної дії (контекстне меню або Alt+клік).</li>
-      <li><b>Налаштування</b> (стиль промпта, мова, провайдер, баланс кредитів) — зберігаються у вашому браузері через <code>chrome.storage</code>.</li>
-      <li><b>Ваші API-ключі</b> (необов'язково) — зберігаються лише у вашому браузері та надсилаються тільки відповідному провайдеру. Ми їх не бачимо.</li>
-      <li><b>Історія промптів</b> (останні 50) — локально у браузері; можна експортувати або видалити («Скинути все»).</li>
-    </ul>
-  </div>
-
-  <h2>Сторонні сервіси</h2>
+  <h2>Які дані обробляються та навіщо</h2>
   <ul>
-    <li><b>ШІ-провайдери</b> — OpenRouter, Google Gemini, OpenAI або Groq (на ваш вибір): отримують зображення й повертають промпт.</li>
-    <li><b>Monobank</b> (купівля кредитів): оплата відбувається на сторінці Monobank, дані картки ми не отримуємо.</li>
-    <li><b>Сервіс QR-кодів</b> (api.qrserver.com): отримує лише посилання на сторінку оплати, щоб намалювати QR.</li>
+    <li><b>Вибране зображення та промпт.</b> Аналіз запускається командою контекстного меню, Alt+кліком або підтримуваним Shift+кліком на Mac. Розширення завантажує зображення; якщо це не вдається, передає його URL, який може містити параметри запиту. Зображення або URL, інструкції, стиль, мова та модель потрібні для генерації. Ми не скануємо й не завантажуємо всі зображення сторінки.</li>
+    <li><b>Кредитний облік.</b> Постійний ідентифікатор пристрою, IP-адреса реєстрації, зв'язок з акаунтом, баланс, час використання, модель та результат запиту обробляються на нашому бекенді Supabase для надання кредитів, захисту від зловживань і діагностики. Для обліку також можуть зберігатися ідентифікатори запитів провайдера, кількість токенів і вартість.</li>
+    <li><b>Необов'язковий вхід через email.</b> Supabase Auth обробляє адресу, дані автентифікації та ідентифікатор акаунта. Email залишається пов'язаним з акаунтом після надсилання коду. Браузер зберігає email і токени сесії. Сповіщення про низький баланс можуть надсилатися через Resend.</li>
+    <li><b>Платежі.</b> Для зарахування покупок і розв'язання платіжних питань зберігаються ідентифікатор рахунку, пакет кредитів, сума, статус, дати та пристрій/акаунт. Monobank проводить оплату на своїй сторінці; розширення не збирає номер картки чи код безпеки.</li>
+    <li><b>Налаштування й ключі.</b> Мова, стиль, провайдер/модель, ідентифікатор пристрою та власні API-ключі зберігаються у <code>chrome.storage.sync</code>. Chrome може синхронізувати їх через ваш Google-акаунт згідно з налаштуваннями браузера. Ключ передається обраному провайдеру для перевірки та API-запитів; вбудований бекенд VIETRO не отримує ваші особисті ключі провайдерів.</li>
+    <li><b>Локальні записи.</b> У <code>chrome.storage.local</code> зберігаються останні 50 промптів (текст, модель, стиль і час), відображуваний баланс, сесія та дані незавершеного входу/платежу. Історія не надсилається на сервер як окремий список.</li>
   </ul>
 
-  <h2>Чого ми НЕ робимо</h2>
+  <h2>Кому передаються дані</h2>
   <ul>
-    <li>Не збираємо персональні дані, історію перегляду чи вміст сторінок.</li>
-    <li>Жодної аналітики, трекінгу та реклами.</li>
-    <li>Не продаємо й не передаємо дані нікому, крім сервісів вище.</li>
-    <li>Розширення нічого не робить у фоні — лише за вашим кліком.</li>
+    <li><b>Вбудований режим:</b> Supabase забезпечує бекенд, автентифікацію й базу даних. Зображення або URL та інструкції передаються через OpenRouter постачальнику моделі; резервним провайдером може бути Groq. Результат повертається через бекенд.</li>
+    <li><b>Власний API:</b> OpenRouter, Google Gemini, OpenAI або Groq отримує ключ і запит безпосередньо. OpenRouter передає запит постачальнику вибраної моделі.</li>
+    <li><b>Email:</b> Supabase та налаштований сервіс доставки обробляють листи входу; Resend отримує email і текст сповіщення про баланс.</li>
+    <li><b>Оплата й QR:</b> Monobank отримує необхідні дані рахунку; <code>api.qrserver.com</code> отримує URL сторінки оплати для створення QR-коду. Сервіси також отримують звичайні мережеві метадані, зокрема IP-адресу.</li>
+    <li><b>Браузер і сайти:</b> Google обробляє дані Chrome Sync, коли синхронізацію ввімкнено. Хост зображення отримує запит на його завантаження. Кнопка «Повторити» відкриває Gemini та вставляє промпт на цій сторінці. Відкриття довідки, Telegram або цієї політики на GitHub Pages звертається до відповідного сайту.</li>
   </ul>
+  <p>Провайдери можуть обробляти дані в інших країнах. Строки зберігання та використання залежать від провайдера, моделі й налаштувань акаунта; розширення не гарантує нульового зберігання або невикористання для навчання кожним провайдером. Перед надсиланням конфіденційних зображень ознайомтеся з політикою вибраного сервісу.</p>
 
-  <h2>Видалення даних</h2>
-  <p>Усі дані живуть у вашому браузері: кнопка «Скинути все» в попапі або просто видаліть розширення.</p>
+  <h2>Автоматична робота та дозволи</h2>
+  <p>Контент-скрипти завантажуються на відповідних сторінках для обробки вашої дії та показу результату. Аналіз зображення запускаєте ви. Відкриття попапа може оновити баланс/сесію; перевірка незавершеного платежу може поновитися. Отже, не кожен мережевий запит потребує нового кліку по зображенню.</p>
+  <p><code>contextMenus</code> додає команду зображення; <code>storage</code> зберігає налаштування й записи; <code>activeTab</code> і <code>scripting</code> підтримують інтерфейс результату та вставлення в Gemini. Доступ до хостів потрібен для вибраних зображень і підтримуваних сервісів. Ми не збираємо загальний список історії перегляду чи сторонній вміст сторінок.</p>
 
-  <h2>Контакти</h2>
-  <p><a href="mailto:genfald@gmail.com">genfald@gmail.com</a> · Telegram: <a href="https://t.me/VIETRO_AI">t.me/VIETRO_AI</a></p>
+  <h2>Зберігання та видалення</h2>
+  <p>Локально зберігаються останні 50 промптів; нові записи витісняють старі. Налаштування й ключі залишаються до зміни або очищення. Можна експортувати історію, прибрати збережені ключі, вийти з акаунта чи видалити розширення. Вихід прибирає локальну сесію, а не серверний акаунт. Даними Chrome Sync керують налаштування синхронізації Chrome.</p>
+  <p>Видалення або скидання розширення не видаляє серверні записи акаунта, пристрою, кредитів, використання й рахунків. Для цих записів застосунку не налаштовано автоматичного фіксованого строку видалення. Щоб отримати доступ, виправити чи видалити дані, напишіть на <a href="mailto:genfald@gmail.com">genfald@gmail.com</a>, зазначивши email акаунта або номер рахунку; не надсилайте паролі, API-ключі чи дані картки. Може знадобитися підтвердження володіння акаунтом. Частину записів може бути необхідно зберігати для завершення платежів, спорів, захисту від зловживань або встановлених вимог; обмеження пояснимо під час опрацювання звернення.</p>
+  <p>Обробник промптів використовує зображення й результат для відповіді; записи застосунку містять метадані використання та обліку, а не архів зображень чи промптів. Провайдери, інфраструктурні журнали й резервні копії мають власні строки зберігання. Локальна історія та копії провайдерів є окремими даними.</p>
 
-  <p class="muted" style="margin-top:40px;font-size:13px">© 2026 VIETRO · <a href="https://t.me/VIETRO_AI">@VIETRO_AI</a></p>
+  <h2>Безпека й обмежене використання</h2>
+  <p>Запити до нашого бекенду, ШІ, автентифікації, поштових, платіжних і QR-сервісів використовують HTTPS. Оригінальні зображення завантажуються за їхніми адресами, які можуть бути HTTP або HTTPS. Ключі вбудованих провайдерів залишаються на сервері. Сховище браузера підпорядковується захисту й синхронізації Chrome; окремого захищеного паролем сховища розширення не додає.</p>
+  <p>VIETRO використовує та передає дані відповідно до <a href="https://developer.chrome.com/docs/webstore/program-policies/user-data">Chrome Web Store User Data Policy</a>, включно з вимогами Limited Use: для функцій промптів, акаунта, оплати, підтримки та безпеки. Ми не продаємо дані, не використовуємо їх для персоналізованої реклами чи оцінки кредитоспроможності. Ми не переглядаємо зображення та промпти регулярно; доступ для підтримки, безпеки чи виконання правових вимог обмежується відповідною метою.</p>
+  <p>Зміни політики публікуються тут із новою датою. Контакт: <a href="mailto:genfald@gmail.com">genfald@gmail.com</a>.</p>
+  </section>
+  <p class="muted" style="margin-top:40px;font-size:13px">© 2026 VIETRO</p>
 </div>
 </body>
 </html>
